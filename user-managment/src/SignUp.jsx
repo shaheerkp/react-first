@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate,Link } from "react-router-dom";
 
 function SignUp() {
+  let navigate = useNavigate();
   const [user, setUser] = useState({
     fullName: "",
     userName: "",
     email: "",
     password: "",
+    err: "",
   });
 
   const changeFullname = (e) => {
@@ -22,23 +25,71 @@ function SignUp() {
     setUser({ ...user, email: e.target.value });
   };
 
+  const validate=()=>{
+    if(!user.email.includes('@')){
+      setUser({...user,err:"invalid email"})
+      return false
+  
+    }
+    else if(!user.fullName){
+      setUser({...user,err:"Full name cannot be blank"})
+      return false
+
+    }
+    else if(!user.userName){
+      setUser({...user,err:"User name cannot be blank"})
+      return false
+
+    }   
+   
+    else if(!user.password){
+      setUser({...user,err:"Password cannot be blank"})
+      return false
+
+    }
+    else{
+      setUser({...user,err:""})
+      return true
+
+    }
+
+  }
+
   const userSignUp = (e) => {
     e.preventDefault();
-    const register = {
-      fullName: user.fullName,
-      userName: user.userName,
-      email: user.email,
-      password: user.password,
-    };
-    console.log(register);
-    axios.post("http://localhost:4000/signup", register).then((response) => {
-      console.log(response);
-    });
+    const valid=validate()
+    if(valid){
+      const register = {
+        fullName: user.fullName,
+        userName: user.userName,
+        email: user.email,
+        password: user.password,
+      };
+      console.log(register);
+      axios.post("http://localhost:4000/signup", register).then((response) => { 
+        console.log(response.data.err)  
+        if(!response.data.err){
+          navigate("/");
+
+        }   
+        else{
+          alert("user already exsist")
+        }
+              
+      });
+    }
+    else{
+      alert("Enter all fields correctly")
+    }
+
   };
+
   return (
+    <div className="inner ">
     <div className="container ">
       <form onSubmit={userSignUp}>
         <h3>Register</h3>
+        {user.err?(<h5 className="text-center text-danger ">{user.err}</h5>):null}
 
         <div className="form-group ">
           <label>Full name</label>
@@ -88,10 +139,12 @@ function SignUp() {
           Register
         </button>
         <p className="forgot-password text-right">
-          Already registered <a href="/signin">log in</a>
+          Already registered  <Link to="/signin">Click here</Link>
         </p>
       </form>
     </div>
+    </div>
+
   );
 }
 

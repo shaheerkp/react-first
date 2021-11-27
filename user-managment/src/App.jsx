@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Signup from "./SignUp";
 import Signin from "./Signin";
+import Home from "./Home";
 // import SignUp from "./components/signup.component";
 
 function App() {
@@ -18,16 +19,17 @@ function App() {
     
   
         <div className="outer ">
-          <div className="inner ">
+         
         
             <Routes>
               <Route exact path='/signup' element={<Signup/>} />
               <Route exact path='/signin' element={<Signin/>} />
+              <Route exact path='/' element={<Home/>} />
             
-             
+            
             </Routes>
           </div>
-        </div>
+       
       </div></Router>
   );
 }

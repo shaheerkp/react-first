@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link,useNavigate } from "react-router-dom";
 
 function Signin() {
-
+  
+    let navigate = useNavigate();
     const [user, setUser] = useState({
         email: "",
         password: "",
@@ -22,14 +24,20 @@ function Signin() {
       email: user.email,
       password: user.password,
     };
-    console.log(register);
     axios.post("http://localhost:4000/signin", register).then((response) => {
-      console.log(response);
+      console.log(response.data.status);
+      if(response.data.status){
+        navigate("/")
+        
+      }else{
+        alert("login failed")  
+      }
     });
   };
 
 
   return (
+    <div className="inner ">
     <form onSubmit={userSignIn}>
       <h3>Log in</h3>
 
@@ -59,9 +67,10 @@ function Signin() {
         Sign in
       </button>
       <p className="forgot-password text-right">
-        <a href="signup">create account</a>
+      <Link to="/signup">Create Account</Link>
       </p>
     </form>
+    </div>
   );
 }
 

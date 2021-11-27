@@ -21,12 +21,9 @@ const signupTemplete=new mongoose.Schema({
     date:{
         type:Date,
         default:Date.now
-    }
-    
-
-
+    } 
 })
 
 
 
-module.exports=mongoose.model('mytable',signupTemplete)  
+module.exports=mongoose.model('mytable',signupTemplete)
