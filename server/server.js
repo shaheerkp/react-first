@@ -7,16 +7,12 @@ const cors=require('cors')
 const jwt=require('jsonwebtoken')
 
 
-
-
-
-
 dotenv.config()
 mongoose.connect(process.env.DATABASE_ACCESS,()=>{
     console.log("data base connected");   
 }) 
 
-app.use(express.json())
+app.use(express.json()) 
 app.use(cors())    
 app.use('/',router) 
 app.listen(4000,()=>{

@@ -67,7 +67,7 @@ function SignUp() {
       };
       console.log(register);
       axios.post("http://localhost:4000/signup", register).then((response) => { 
-        console.log(response.data.err)  
+        console.log(response)  
         if(!response.data.err){
           navigate("/");
 

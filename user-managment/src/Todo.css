@@ -79,9 +79,10 @@
   }
   
   .app .todos .todo .left p {
-    margin-left: 3px;
-    font-size: medium;
-    font-weight: 700;
-    font-style: normal;
-    color: grey;
+      margin-left: 3px;
+      font-size: medium;
+      font-weight: 700;
+      font-style: normal;
+      color: grey;
+      margin-top: 15px;
   }
