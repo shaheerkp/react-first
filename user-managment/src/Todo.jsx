@@ -15,7 +15,9 @@ function Todo(props) {
       console.log(...data);
       setTodoss([...data]);
     });
-  }, [todoss]);
+  },[]);
+
+
 
   console.log("todoss", todoss);
 
@@ -26,6 +28,7 @@ function Todo(props) {
     };
     axios.post("http://localhost:4000/addtask", add).then((res) => {
       if (res.data.status) {
+        setTodoss([...todoss,add])
         alert(res.data.mes);
       } else {
         alert(res.data.mes);
@@ -52,18 +55,48 @@ function Todo(props) {
         <i onClick={addTodo} className="fas fa-plus"></i>
       </div>
       <div className="todos">
-        {todoss.map((value) => {
+        {todoss.map((value,index) => {
           return (
             <div className="todo">
               <div className="left">
-                <input  checked={value.iscompleted} onChange={(e)=>{
-                  axios.post("http://localhost:4000/changestatus",{date:value.date,userid:userId,iscompleted:value.iscompleted})
+                <input
+                  checked={value.iscompleted}
+                  onChange={(e) => {
+                    todoss[index].iscompleted = !value.iscompleted;
+                    setTodoss([...todoss])
+                    axios.post("http://localhost:4000/changestatus", {
+                      date: value.date,
+                      userid: userId,
+                      iscompleted: value.iscompleted,
+                    });
 
-                }} type="checkbox" name="" id="" />
-                <p style={value.iscompleted?{textDecoration:"line-through"}:null} >{value.task}</p>
+                  }}
+                  type="checkbox"
+                  name=""
+                  id=""
+                />
+                <p
+                  style={
+                    value.iscompleted
+                      ? { textDecoration: "line-through" }
+                      : null
+                  }
+                >
+                  {value.task}
+                </p>
               </div>
               <div className="right">
-                <i className="fas fa-times"></i>
+                <i
+                  onClick={() => {
+                    todoss.splice(index,1)
+                    setTodoss([...todoss])
+                    axios.post("http://localhost:4000/delete", {
+                      date: value.date,
+                      userid: userId,
+                    });
+                  }}
+                  className="fas fa-times"
+                ></i>
               </div>
             </div>
           );

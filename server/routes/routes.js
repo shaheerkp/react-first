@@ -146,8 +146,20 @@ router.post("/changestatus",async(req,res)=>{
 
 })
 
+router.post("/delete",(req,res)=>{ 
+  console.log("delete")
+  console.log(req.body)
+  let id=req.body.userid
+  signupTempleteCopy.updateOne({_id:ObjectId(id)}, { "$pull": { "task": { "date": req.body.date } }}, { safe: true, multi:true }, function(err, docs) {
+    console.log("docs",docs)
+    console.log("errr",err);
+    
+});
+
+}) 
+
 router.get("/home",verifytoken,(req,res)=>{
-  console.log("reached home");
+  console.log("reached home"); 
  res.json({status:true,mes:"Validated",user:req.user})
 })
 
