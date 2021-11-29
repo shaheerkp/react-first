@@ -17,7 +17,7 @@ console.log("reached verifytoken");
   else{
     try {
       console.log("checking token");
-     jwt.verify(token,"secret",(err,user)=>{
+     jwt.verify(token,"secret",(err,user)=>{ 
        if(err){
          console.log("errr",err);
           res.json({status:false,mes:"Token is not valid!"}) 
@@ -125,18 +125,18 @@ router.post("/addtask",async(req,res)=>{
   }
 })
 
-router.post("/gettasks",async(req,res)=>{
+router.post("/gettasks",async(req,res)=>{  
 
     signupTempleteCopy.find({ _id: ObjectId(req.body.id) }, function (err, docs) {
       console.log(docs[0].task)
       res.json(docs[0].task)
-    })
+    }) 
 
 
 })
 
-router.post("/changestatus",async(req,res)=>{
-  console.log(req.body);
+router.post("/changestatus",async(req,res)=>{  
+  console.log(req.body); 
   let id=req.body.userid
   signupTempleteCopy.updateOne({_id:ObjectId(id),"task.date":req.body.date},{$set:{"task.$.iscompleted":!req.body.iscompleted}},function(err,docs){
 

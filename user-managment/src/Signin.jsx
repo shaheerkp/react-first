@@ -22,6 +22,8 @@ function Signin() {
           setLoaded(true);
         }
       });
+    }else{
+     setLoaded(true)
     }
   }, []);
   let navigate = useNavigate();

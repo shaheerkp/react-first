@@ -8,7 +8,7 @@ const jwt=require('jsonwebtoken')
 
 
 dotenv.config()
-mongoose.connect(process.env.DATABASE_ACCESS,()=>{
+mongoose.connect(process.env.DATABASE_ACCESS,()=>{ 
     console.log("data base connected");   
 }) 
 
@@ -17,4 +17,4 @@ app.use(cors())
 app.use('/',router) 
 app.listen(4000,()=>{
     console.log("server is running ");
-})  
+})   

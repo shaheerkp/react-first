@@ -13,6 +13,7 @@ function Home() {
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
+      alert("local unddd")
       setUser(localStorage.getItem("name"))
       setUserID(localStorage.getItem("id"))
       axios
@@ -27,6 +28,8 @@ function Home() {
           navigate('/signin') 
         }
       });
+    }else{
+      navigate("/signin")
     }
   }, []);
 
@@ -52,7 +55,14 @@ function Home() {
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item">
+            <li onClick={()=>{
+              alert("sign out")
+              localStorage.removeItem("token");
+              localStorage.removeItem("name");
+              localStorage.removeItem("id");
+              window.location.reload()
+
+            }} class="nav-item">
               Signout
              
             </li>
@@ -65,7 +75,11 @@ function Home() {
       </nav>
       <Todo data={userID}></Todo>
      </div>
-      :<h1>Wait</h1>
+      :<div class="d-flex justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
     }
   
  </div>

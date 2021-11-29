@@ -28,6 +28,6 @@ const signupTemplete=new mongoose.Schema({
     }
 })
 
-
+ 
 
 module.exports=mongoose.model('mytable',signupTemplete)
